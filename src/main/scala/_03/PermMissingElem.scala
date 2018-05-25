@@ -1,9 +1,8 @@
-package _00
+package _03
 
 import scala.annotation.tailrec
-import scala.collection.JavaConverters._
 
-object SmallestUncontained {
+object PermMissingElem {
 
   @tailrec
   def findHead(a: List[Int], n: Int): Int =
