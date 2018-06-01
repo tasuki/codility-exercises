@@ -1,20 +1,27 @@
 package _03
 
+import scala.annotation.tailrec
+
 object TapeEquilibrium {
-  def solution(arr: Array[Int]): Int = {
-    var bestScore: Int = 1000000
-    var left: Int = arr(0)
-    var right: Int = arr.slice(1, arr.length).sum
 
-    for (i <- 1 to arr.length - 1) {
+  @tailrec
+  def find(
+    arr: Array[Int],
+    i: Int,
+    left: Int,
+    right: Int,
+    bestScore: Int
+  ): Int =
+    if (i == arr.length) bestScore
+    else {
       val potentialScore = (left - right).abs
-      if (potentialScore < bestScore)
-        bestScore = potentialScore
+      val newBest =
+        if (potentialScore > bestScore) bestScore
+        else potentialScore
 
-      left += arr(i)
-      right -= arr(i)
+      find(arr, i + 1, left + arr(i), right - arr(i), newBest)
     }
 
-    bestScore
-  }
+  def solution(arr: Array[Int]): Int =
+    find(arr, 1, arr(0), arr.slice(1, arr.length).sum, 1000000)
 }
