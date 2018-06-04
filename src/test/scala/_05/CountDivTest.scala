@@ -22,4 +22,8 @@ class CountDivTest extends FlatSpec {
   it should "work with large k" in {
     assert(CountDiv.solution(6, 11, 30) == 0)
   }
+
+  it should "work for another sample" in {
+    assert(CountDiv.solution(100, 123456789, 2) == 61728345)
+  }
 }
