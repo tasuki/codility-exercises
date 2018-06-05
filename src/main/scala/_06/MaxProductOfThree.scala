@@ -22,7 +22,7 @@ object MaxProductOfThree {
 
     positive.headOption match {
       case Some(p) => p * biggerProduct
-      case None => negative.reverse.take(3).reduce(_ * _)
+      case None => negative.reverse.take(3).product
     }
   }
 }
