@@ -56,6 +56,9 @@ object NumberOfDiscIntersections {
     val startOrder = getOrderedBorders(getExtremes(discs, _ - _), Start)
     val endOrder   = getOrderedBorders(getExtremes(discs, _ + _), End)
 
-    countIntersections(merge(startOrder, endOrder))
+    val count = countIntersections(merge(startOrder, endOrder))
+
+    // yes please make it arbitrarily more difficult
+    if (count > 10000000) -1 else count
   }
 }
