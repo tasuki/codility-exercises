@@ -57,4 +57,12 @@ class NumberOfDiscIntersectionsTest extends FlatSpec {
   it should "count intersections for sample" in {
     assert(NumberOfDiscIntersections.solution(Array(1, 5, 2, 1, 4, 0)) == 11)
   }
+
+  it should "count intersections when there are none" in {
+    assert(NumberOfDiscIntersections.solution(Array(0, 0, 0)) == 0)
+  }
+
+  it should "count touching intersections" in {
+    assert(NumberOfDiscIntersections.solution(Array(0, 1, 0)) == 2)
+  }
 }

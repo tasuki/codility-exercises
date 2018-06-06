@@ -1,6 +1,6 @@
 package _06
 
-import scala.collection.mutable
+import scala.annotation.tailrec
 
 trait BorderKind {
   val priority: Int
@@ -35,19 +35,20 @@ object NumberOfDiscIntersections {
       else bx.kind.priority < by.kind.priority
     }
 
-  def countIntersections(borders: List[Border]): Int = {
-    var open = 0
-    var intersections = 0
-
-    borders.foreach {
-      case Border(Start, _, _) =>
-        intersections += open
-        open += 1
-      case _ =>
-        open -= 1
+  @tailrec
+  def countIntersections(
+    borders: List[Border],
+    intersections: Int = 0,
+    open: Int = 0
+  ): Int = {
+    borders match {
+      case h :: t =>
+        if (h.kind == Start)
+          countIntersections(t, intersections + open, open + 1)
+        else
+          countIntersections(t, intersections, open - 1)
+      case Nil => intersections
     }
-
-    intersections
   }
 
   def solution(a: Array[Int]): Int = {
