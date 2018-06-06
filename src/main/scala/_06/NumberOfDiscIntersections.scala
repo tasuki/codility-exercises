@@ -16,23 +16,20 @@ case class Border(kind: BorderKind, at: Int, disc: Int)
 
 object NumberOfDiscIntersections {
   def getExtremes(arr: List[Int], op: (Int, Int) => Int): List[Int] =
-    arr.zipWithIndex.map {
-      case (radius, center) => op(center, radius)
-    }
+    arr.zipWithIndex.map(_.swap).map(op.tupled)
 
   def getOrderedBorders(
     arr: List[Int],
     kind: BorderKind
   ): List[Border] = {
     val builder: (Int, Int) => Border = Border.apply(kind, _, _)
-    arr.zipWithIndex.sortBy(_._1).map(builder.tupled)
+    arr.zipWithIndex.map(builder.tupled).sortBy(_.at)
   }
 
   def merge(b1: List[Border], b2: List[Border]): List[Border] =
     (b1 ++ b2).sortWith { (bx, by) =>
-      if (bx.at < by.at) true
-      else if (bx.at > by.at) false
-      else bx.kind.priority < by.kind.priority
+      if (bx.at == by.at) bx.kind.priority < by.kind.priority
+      else bx.at < by.at
     }
 
   @tailrec
