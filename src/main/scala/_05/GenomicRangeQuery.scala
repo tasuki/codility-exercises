@@ -1,27 +1,30 @@
 package _05
 
-import scala.collection.mutable.ArrayBuilder
+import scala.annotation.tailrec
 
 object GenomicRangeQuery {
   def solution(s: String, p: Array[Int], q: Array[Int]): Array[Int] = {
-    val sequence = s.toCharArray
-
-    def getPrefixSumArray(c: Char): Array[Int] = {
-      val builder = new ArrayBuilder.ofInt
-      var count = 0
-
-      sequence.foreach { nucleotide =>
-        if (nucleotide == c) count += 1
-        builder += count
+    @tailrec
+    def getPrefixSumArray(
+      c: Char,
+      sequence: List[Char],
+      count: Int = 0,
+      lst: List[Int] = Nil
+    ): Array[Int] =
+      sequence match {
+        case h :: t if h == c =>
+          getPrefixSumArray(c, t, count + 1, count + 1 :: lst)
+        case h :: t =>
+          getPrefixSumArray(c, t, count, count :: lst)
+        case Nil =>
+          lst.reverse.toArray
       }
 
-      builder.result
-    }
-
-    val a = getPrefixSumArray('A')
-    val c = getPrefixSumArray('C')
-    val g = getPrefixSumArray('G')
-    val t = getPrefixSumArray('T')
+    val seq = s.toList
+    val a = getPrefixSumArray('A', seq)
+    val c = getPrefixSumArray('C', seq)
+    val g = getPrefixSumArray('G', seq)
+    val t = getPrefixSumArray('T', seq)
 
     def isInRange(psArray: Array[Int], fromIndex: Int, toIndex: Int): Boolean = {
       val from =
@@ -34,7 +37,7 @@ object GenomicRangeQuery {
     }
 
     def findMinInRange(index: Int): Int =
-      if (isInRange(a, p(index), q(index))) 1
+      if      (isInRange(a, p(index), q(index))) 1
       else if (isInRange(c, p(index), q(index))) 2
       else if (isInRange(g, p(index), q(index))) 3
       else if (isInRange(t, p(index), q(index))) 4
