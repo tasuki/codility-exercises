@@ -2,15 +2,9 @@ package _06
 
 import scala.annotation.tailrec
 
-trait BorderKind {
-  val priority: Int
-}
-case object Start extends BorderKind {
-  val priority = 1
-}
-case object End extends BorderKind {
-  val priority = 2
-}
+trait BorderKind
+case object Start extends BorderKind
+case object End extends BorderKind
 
 case class Border(kind: BorderKind, at: Int, disc: Int)
 
@@ -27,10 +21,7 @@ object NumberOfDiscIntersections {
   }
 
   def merge(b1: List[Border], b2: List[Border]): List[Border] =
-    (b1 ++ b2).sortWith { (bx, by) =>
-      if (bx.at == by.at) bx.kind.priority < by.kind.priority
-      else bx.at < by.at
-    }
+    (b1 ++ b2).sortBy(b => (b.at, b.kind == End))
 
   @tailrec
   def countIntersections(
