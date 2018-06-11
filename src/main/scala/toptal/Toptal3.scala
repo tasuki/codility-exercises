@@ -1,7 +1,6 @@
 package toptal
 
 import scala.annotation.tailrec
-import scala.collection.immutable.BitSet
 
 // get a list of integers: how many sublists can it be split into,
 // so that when you sort each, the whole list is sorted
