@@ -8,6 +8,16 @@ class CountFactorsTest extends FlatSpec {
     assert(CountFactors.solution(24) == 8)
   }
 
+  it should "work for 1 damn" in {
+    // 1!
+    assert(CountFactors.solution(1) == 1)
+  }
+
+  it should "work for 2" in {
+    // 1 2
+    assert(CountFactors.solution(2) == 2)
+  }
+
   it should "work for 49" in {
     // 1 7 49
     assert(CountFactors.solution(49) == 3)
