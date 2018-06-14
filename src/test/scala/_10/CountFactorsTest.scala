@@ -46,4 +46,9 @@ class CountFactorsTest extends FlatSpec {
     // large prime
     assert(CountFactors.solution(780291637) == 2)
   }
+
+  it should "be fast for 8th mersenne prime" in {
+    // large prime
+    assert(CountFactors.solution(2147483647) == 2)
+  }
 }
