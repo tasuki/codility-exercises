@@ -1,36 +1,18 @@
 package _10
 
+import scala.annotation.tailrec
+
 object MinPerimeterRectangle {
-  def cartesianProduct[T](lst: List[List[T]]): List[List[T]] = {
-    def pel(e: T,
-      ll: List[List[T]],
-      a: List[List[T]] = Nil): List[List[T]] =
-      ll match {
-        case Nil => a.reverse
-        case x :: xs => pel(e, xs, (e :: x) :: a )
-      }
+  def generateFactors(n: Int): List[Int] = {
+    val sqrtn = math.sqrt(n).ceil.toInt
 
-    lst match {
-      case Nil => Nil
-      case x :: Nil => List(x)
-      case x :: _ =>
-        x match {
-          case Nil => Nil
-          case _ =>
-            lst.par.foldRight(List(x))( (l, a) =>
-              l.flatMap(pel(_, a))
-            ).map(_.dropRight(x.size))
-        }
-    }
-  }
+    @tailrec
+    def find(cur: Int, found: List[Int]): List[Int] =
+      if (cur > sqrtn) found
+      else if (n % cur == 0) find(cur + 1, cur :: n / cur :: found)
+      else find(cur + 1, found)
 
-  def generateFactors(primeFactors: List[(Int, Int)]): List[Int] = {
-    val values = List(1) :: primeFactors.map {
-      case (factor, exp) =>
-        (0 to exp).map(e => BigInt(factor).pow(e).toInt).toList
-    }
-
-    cartesianProduct(values).map(_.product).sorted
+    find(1, Nil).sorted
   }
 
   def getSides(factors: List[Int]): (Int, Int) = {
@@ -43,9 +25,7 @@ object MinPerimeterRectangle {
   }
 
   def solution(n: Int): Int = {
-    val primeFactors = CountFactors.primeFactors(n).groupBy(identity).mapValues(_.length).toList
-    val factors = generateFactors(primeFactors)
-
+    val factors = generateFactors(n)
     val (a, b) = getSides(factors)
     2 * a + 2 * b
   }

@@ -4,6 +4,7 @@ import org.scalatest.FlatSpec
 
 class MinPerimeterRectangleTest extends FlatSpec {
   it should "work for sample case" in {
+    // 1 2 3 5 6 10 15 30
     assert(MinPerimeterRectangle.solution(30) == 22)
   }
 
@@ -16,6 +17,7 @@ class MinPerimeterRectangleTest extends FlatSpec {
   }
 
   it should "work for 32" in {
+    // 1 2 4 8 16 32
     assert(MinPerimeterRectangle.solution(32) == 24)
   }
 
