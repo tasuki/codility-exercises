@@ -5,7 +5,7 @@ package toptal
 object Toptal2 {
 
   def filter(sortedArr: Array[Int], greaterThan: Int): Array[Int] = {
-    for (i <- 0 to sortedArr.length - 1) {
+    for (i <- sortedArr.indices) {
       if (sortedArr(i) > greaterThan)
         return sortedArr.slice(i, sortedArr.length)
     }

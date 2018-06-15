@@ -1,7 +1,6 @@
 package _10
 
 import scala.annotation.tailrec
-import scala.collection.JavaConverters._
 
 object Flags {
   def isPeak(left: Int, self: Int, right: Int): Boolean =
@@ -11,7 +10,7 @@ object Flags {
     isPeak(hills(index - 1), hills(index), hills(index + 1))
 
   def findPeaks(hills: Array[Int]): Seq[Boolean] = {
-    (0 to hills.length - 1).map { index =>
+    hills.indices.map { index =>
       if (hills.isDefinedAt(index - 1) && hills.isDefinedAt(index + 1))
         isPeak(hills, index)
       else false
