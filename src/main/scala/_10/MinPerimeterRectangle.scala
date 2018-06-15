@@ -12,7 +12,7 @@ object MinPerimeterRectangle {
       else if (n % cur == 0) find(cur + 1, cur :: n / cur :: found)
       else find(cur + 1, found)
 
-    find(1, Nil).sorted
+    find(1, Nil).distinct.sorted
   }
 
   def getSides(factors: List[Int]): (Int, Int) = {
