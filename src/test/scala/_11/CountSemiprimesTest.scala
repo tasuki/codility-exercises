@@ -10,9 +10,9 @@ class CountSemiprimesTest extends FlatSpec {
     assert(CountSemiprimes.eratosthenes(30) == primes)
   }
 
-  it should "convert list to bools" in {
-    assert(CountSemiprimes.inListBools(List(2, 3, 5)) == Vector(
-      false, false, true, true, false, true
+  it should "convert list to sums" in {
+    assert(CountSemiprimes.prefixSum(List(2, 3, 5), 6) == Vector(
+      0, 0, 1, 2, 2, 3, 3
     ))
   }
 
@@ -22,5 +22,13 @@ class CountSemiprimesTest extends FlatSpec {
       Array( 1,  4, 16),
       Array(26, 10, 20)
     ).toList == List(10, 4, 0))
+  }
+
+  it should "be fast for large case" in {
+    CountSemiprimes.solution(
+      50000,
+      (1 to 25000).toArray,
+      (25000 to 50000).toArray
+    )
   }
 }
