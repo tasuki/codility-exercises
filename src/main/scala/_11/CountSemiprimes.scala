@@ -4,22 +4,14 @@ import scala.annotation.tailrec
 
 object CountSemiprimes {
   def eratosthenes(upTo: Int): List[Int] = {
-    val arr = Array.fill(upTo + 1)(true)
+    val composites = new Array[Boolean](upTo)
 
-    @tailrec
-    def recurse(current: Int): List[Boolean] = {
-      var i = current + current
-      while (i <= upTo) {
-        arr(i) = false
-        i += current
-      }
-
-      val next = arr.indexWhere(identity, current + 1)
-      if (next == -1) arr.toList
-      else recurse(next)
+    (2 to math.sqrt(upTo).toInt).foreach { i =>
+      if (!composites(i))
+        (i * i until upTo by i).foreach(composites(_) = true)
     }
 
-    recurse(2).zipWithIndex.filter(_._1).map(_._2).drop(2)
+    composites.zipWithIndex.filter(!_._1).map(_._2).drop(2).toList
   }
 
   @tailrec
