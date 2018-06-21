@@ -7,6 +7,8 @@ class Toptal1Test extends FlatSpec {
     assert(Toptal1.gcd(10, 15) == 5)
     assert(Toptal1.gcd(15, 10) == 5)
     assert(Toptal1.gcd(24, 12) == 12)
+    assert(Toptal1.gcd(5, 3) == 1)
+    assert(Toptal1.gcd(3, 5) == 1)
   }
 
   it should "work for simple case" in {
