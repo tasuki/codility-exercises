@@ -21,9 +21,13 @@ object FibFrog {
     else {
       val jumpable = fibs.filter(f => leaves(position + f) == 1)
 
-      jumpable.flatMap { jump =>
-        countJumps(leaves, fib, n, position + jump, jumps + 1)
-      }.reduceOption(_ min _)
+      jumpable.foreach { jump =>
+        val finalJumps = countJumps(leaves, fibs, n, position + jump, jumps + 1)
+        if (finalJumps.isDefined)
+          return finalJumps
+      }
+
+      None
     }
   }
 
